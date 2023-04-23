@@ -1,3 +1,5 @@
+@file:Suppress("RedundantSamConstructor")
+
 package bookmaker.simulations
 
 import bookmaker.server.betting.BettingService.CreateBetRequest
@@ -12,7 +14,13 @@ fun main() {
     val bookmakerApplication = createBookmakerApplication(authenticationEnabled = false)
     bookmakerApplication.server.start(8080)
 
-    simulation(SimulationContext(logging = false, userService = bookmakerApplication.userService, bettingService = bookmakerApplication.bettingService)) {
+    simulation(
+        SimulationContext(
+            logging = false,
+            userService = bookmakerApplication.userService,
+            bettingService = bookmakerApplication.bettingService
+        )
+    ) {
         // Create a bet owner
         val betOwner = createPlatformManager()
 
@@ -31,13 +39,13 @@ fun main() {
         // Metrics
         var operations = 0
         Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(
-            {
+            Runnable {
                 logger.info("$operations operacji na sekundkę")
                 operations = 0
             },
-            1,
-            1,
-            SECONDS
+            1, // initialDelay in seconds
+            1, // delay in seconds
+            SECONDS // time unit
         )
 
         // Place 100M bets
