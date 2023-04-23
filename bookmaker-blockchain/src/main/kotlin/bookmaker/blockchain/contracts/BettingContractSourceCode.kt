@@ -57,7 +57,7 @@ class BettingContract implements SmartContract {
     double announceResult(BookmakerBettingBlockchain blockchain, BettingBlock<ResultAnnouncementOperation> resultAnnouncementBlock) {      
         // select winners
         List<PlayerBet> winners = playerBets.stream() // stream all bets
-            .filter { playerBet -> playerBet.betResult == resultAnnouncementBlock.operation.result } // take only bets that match the result
+            .filter { playerBet -> playerBet.betResult == resultAnnouncementBlock.operation.result } // take bets that match the result
             .collect(Collectors.toList()) // collect winners to list
         
         // calculate prize pool by summing all bets
@@ -83,7 +83,7 @@ class BettingContract implements SmartContract {
                     new PaycheckOperation( // create new paycheck operation
                         playerBet.userBetBlockHash(), // set bet id equal to hash of the bet placing block
                         won, // define if user won or not
-                        won ? (playerBet.betAmount() * betOdd) : 0.0D // if user won, set amount to bet amount multiplied by odd, otherwise set to 0
+                        won ? (playerBet.betAmount() * betOdd) : 0.0D // if user won, set prize to amount multiplied by odd
                     )
                 )
             )
@@ -105,8 +105,10 @@ class BettingContract implements SmartContract {
     @Override
     Map<String, SmartContractFunction<? extends Operation>> getFunctions() {
         return [
-            "$PLACE_BET_FUNCTION": { ctx -> return placeBet(ctx.block) } as SmartContractFunction<UserBetOperation>,
-            "$ANNOUNCE_RESULT_FUNCTION": { ctx -> return announceResult(ctx.blockchain, ctx.block) } as SmartContractFunction<ResultAnnouncementOperation>,
+            "$PLACE_BET_FUNCTION": 
+                { ctx -> return placeBet(ctx.block) } as SmartContractFunction<UserBetOperation>,
+            "$ANNOUNCE_RESULT_FUNCTION": 
+                { ctx -> return announceResult(ctx.blockchain, ctx.block) } as SmartContractFunction<ResultAnnouncementOperation>,
         ]
     }
 
@@ -119,5 +121,4 @@ class BettingContract implements SmartContract {
     }
 
 }
-
 """
