@@ -1,23 +1,23 @@
 import Layout from "../components/Layout";
 import {ChevronLeftIcon, ChevronRightIcon} from "@chakra-ui/icons"
-import { Badge, Text, Button, Card, CardBody, CardFooter, Container, Flex, Heading, IconButton, Image, Stack, Tag, Link } from "@chakra-ui/react"
+import { Badge, Text, Button, Card, CardBody, CardFooter, Container, Flex, Heading, IconButton, Image, Stack, Tag, Link, LinkBox } from "@chakra-ui/react"
 import bets from '../data/bets-feed'
 import categories from '../data/bets-categories-feed'
 
 export default function Bets() {
-  
   return (
     <Layout>
       <Container maxW='container.lg' minH={'90wh'} marginInlineStart={{ base: '0', sm: 'auto' }}>
         <Flex>
           <Stack>
             {categories.map((category, index) => (
-              <Stack w='48'>
+              <Stack w='48' key={`category-${index}`}>
                 <Heading justifyContent='flex-start' padding={2} fontSize='sm'>
                   {category.name}
                 </Heading>
                 {category.subcategories.map((subcategory, index) => (
                   <Text
+                    key={`subcategory-${index}`}
                     paddingLeft={4}
                     justifyContent='flex-start'
                     color={subcategory.selected ? 'purple.500' : 'black'}
@@ -34,6 +34,7 @@ export default function Bets() {
             {bets.map((bet, index) => {
               return (
                 <Card
+                  key={`bet-${index}`}
                   direction={{ base: 'column', md: 'row' }}
                   overflow='hidden'
                   variant='outline'
@@ -63,7 +64,13 @@ export default function Bets() {
                     <CardFooter paddingTop={0} paddingBottom={3}>
                       {bet.odds.map((odd, index) => {
                           return (
-                            <Tag size={'md'} colorScheme={ bet.open ? 'gray' : 'gray' } borderRadius={'md'} marginRight={'2'}>
+                            <Tag
+                              key={`odd-${index}`}
+                              size={'md'}
+                              colorScheme={bet.open ? 'gray' : 'gray'}
+                              borderRadius={'md'}
+                              marginRight={'2'}
+                            >
                               <Text>{odd.name}: <Text as="span" fontWeight={'bold'}>{odd.value}</Text></Text>
                             </Tag>
                           )
@@ -79,25 +86,31 @@ export default function Bets() {
               )
             })}
             <Flex justifyContent={'center'} paddingTop={3}>
-              <IconButton
-                variant={'outline'}
-                icon={<ChevronLeftIcon />}
-                marginX={'1'}
-              />
+              <Link href={'/bets'}>
+                <IconButton
+                  variant={'outline'}
+                  icon={<ChevronLeftIcon />}
+                  marginX={'1'}
+                />
+              </Link>
               {bets.map((bet, index) => {
                 return (
-                  <IconButton
-                    variant={'outline'}
-                    marginX={'1'}
-                    icon={<Text>{index}</Text>}
-                  />
+                  <Link href={'/bets'} key={`bet-list-${index}`}>
+                    <IconButton
+                      variant={'outline'}
+                      marginX={'1'}
+                      icon={<Text>{index}</Text>}
+                    />
+                  </Link>
                 )
               })}
-              <IconButton
-                variant={'outline'}
-                icon={<ChevronRightIcon />}
-                marginX={'1'}
-              />
+              <Link href={'/bets'}>
+                <IconButton
+                  variant={'outline'}
+                  icon={<ChevronRightIcon />}
+                  marginX={'1'}
+                />
+              </Link>
             </Flex>
           </Stack>
         </Flex>

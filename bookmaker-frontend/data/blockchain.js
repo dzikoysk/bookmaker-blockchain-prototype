@@ -15,6 +15,12 @@ const placeBetBlock = (parent, user, option, value) => ({
   }
 })
 
+const endDate = new Date()
+endDate.setHours(endDate.getHours() + 1)
+endDate.setMinutes(0)
+endDate.setSeconds(0)
+endDate.setMilliseconds(0)
+
 const blockchain = {
   id: "f8c3de3d-1fea-4d7c-29f63c4c3454",
   blocks: [
@@ -27,7 +33,7 @@ const blockchain = {
         type: "Bet Definition Operation",
         betId: "f8c3de3d-1fea-4d7c-29f63c4c3454",
         startDate: new Date("2023-03-01"),
-        endDate: new Date(),
+        endDate: endDate,
       }
     },
     {

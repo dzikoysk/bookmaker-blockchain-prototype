@@ -14,6 +14,7 @@ function App({ Component, pageProps }) {
   return (
     <>
       <Head>
+        <title>Bookmaker Prototype</title>
         <style dangerouslySetInnerHTML={{ __html: criticalThemeCss }} />
       </Head>
       <ChakraProvider>

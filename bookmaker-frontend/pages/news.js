@@ -1,15 +1,16 @@
 import {ChevronLeftIcon, ChevronRightIcon} from "@chakra-ui/icons";
-import { Button, Card, CardBody, CardFooter, Container, Flex, Heading, IconButton, Image, Stack, Text } from "@chakra-ui/react";
+import { Button, Card, CardBody, CardFooter, Container, Flex, Heading, IconButton, Image, Link, Stack, Text } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 import articles from '../data/news-feed'
 
-export default function Account() {
+export default function News() {
   return (
     <Layout>
       <Container maxW='container.lg'>
         <Stack paddingY={10}>
           {articles.map((article, index) => (
             <Card
+              key={`article-${index}`}
               direction={{ base: 'column', sm: 'row' }}
               overflow='hidden'
               variant='outline'
@@ -33,25 +34,31 @@ export default function Account() {
           ))}
         </Stack>
         <Flex justifyContent={'center'} paddingTop={3}>
-          <IconButton
-            variant={'outline'}
-            icon={<ChevronLeftIcon />}
-            marginX={'1'}
-          />
+          <Link href={'/news'}>
+            <IconButton
+              variant={'outline'}
+              icon={<ChevronLeftIcon />}
+              marginX={'1'}
+            />
+          </Link>
           {articles.map((article, index) => {
             return (
-              <IconButton
-                variant={'outline'}
-                marginX={'1'}
-                icon={<Text>{index}</Text>}
-              />
+              <Link href={'/news'} key={`page-${index}`}>
+                <IconButton
+                  variant={'outline'}
+                  marginX={'1'}
+                  icon={<Text>{index}</Text>}
+                />
+              </Link>
             )
           })}
-          <IconButton
-            variant={'outline'}
-            icon={<ChevronRightIcon />}
-            marginX={'1'}
-          />
+          <Link href={'/news'}>
+            <IconButton
+              variant={'outline'}
+              icon={<ChevronRightIcon />}
+              marginX={'1'}
+            />
+          </Link>
         </Flex>
       </Container>
     </Layout>

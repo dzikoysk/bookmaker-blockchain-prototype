@@ -35,7 +35,7 @@ const BlockchainBlock = ({ block, idx }) => {
   }
 
   return (
-    <AccordionItem>
+    <>
       <AccordionButton>
         <Flex justifyContent={'space-between'} w="full">
           <Flex>
@@ -86,7 +86,7 @@ const BlockchainBlock = ({ block, idx }) => {
                 <Th>Dane operacji</Th>
                 <Td>
                   {Object.getOwnPropertyNames(block.operation).map((key) => (
-                    <Text>
+                    <Text key={key}>
                       {key} - {block.operation[key]?.toString()}
                     </Text>
                   ))}
@@ -97,14 +97,14 @@ const BlockchainBlock = ({ block, idx }) => {
           </Table>
         </TableContainer>
       </AccordionPanel>
-    </AccordionItem>
+    </>
   )
 }
 
 export default function BlockchainViewOfFncVsG2() {
   return (
     <Layout>
-      <Container maxW='container.lg'>
+      <Container maxW='container.xl' paddingX={10}>
         <Stack paddingTop={1} fontSize={'sm'}>
           <Stack paddingTop="1">
             <Heading size="md" pb="3">Blockchain {blockchain.id}</Heading>
@@ -120,7 +120,9 @@ export default function BlockchainViewOfFncVsG2() {
           </Stack>
           <Accordion allowToggle>
             {blockchain.blocks.map((block, idx) => (
-              <BlockchainBlock block={block} idx={idx} />
+              <AccordionItem key={idx}>
+                <BlockchainBlock block={block} idx={idx} />
+              </AccordionItem>
             ))}
           </Accordion>
           <Center paddingTop={4}>

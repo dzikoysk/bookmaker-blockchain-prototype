@@ -25,8 +25,12 @@ export default function Home() {
                   dołacz do transparentnego systemu graczy w całej Polsce!
                 </Text>
                 <Flex paddingTop={4} justifyContent='space-between'>
-                  <Button w='48%' colorScheme={'purple'}>Rejestracja</Button>
-                  <Button w='48%' variant={'outline'} colorScheme='black'>Logowanie</Button>
+                  <Link href={'/account'} w='48%'>
+                    <Button w='full' colorScheme={'purple'}>Rejestracja</Button>
+                  </Link>
+                  <Link href={'/account'} w='48%'>
+                    <Button w='full' variant={'outline'} colorScheme='black'>Logowanie</Button>
+                  </Link>
                 </Flex>
                 <Link href="/about" fontWeight={'bold'} paddingTop={4}>
                   Dowiedz się więcej ⟶
@@ -45,8 +49,8 @@ export default function Home() {
             <Stack w='full'>
               <Heading size={'md'} >Trendujące zakłady</Heading>
               <Flex w='full' maxW='100vw' justifyContent={'space-between'} paddingTop={5} paddingX={2} flexWrap={'wrap'}>
-                {trendingBets.map(bet => (
-                  <Stat minW='180px'>
+                {trendingBets.map((bet, idx) => (
+                  <Stat minW='180px' key={`trend-${idx}`}>
                     <StatLabel>{bet.league}</StatLabel>
                     <StatNumber>{bet.title}</StatNumber>
                     <StatHelpText>
@@ -62,8 +66,9 @@ export default function Home() {
 
               <Heading size={'md'} paddingTop={20}>Wydarzenia</Heading>
               <Flex justifyContent={'space-between'} paddingTop={5} paddingX={1}>
-                {news.map(article => (
+                {news.map((article, idx) => (
                   <Card
+                    key={`article-${idx}`}
                     direction={{ base: 'column', sm: 'row' }}
                     overflow='hidden'
                     variant='outline'
@@ -79,7 +84,7 @@ export default function Home() {
                       <Badge fontWeight={'bold'}>{article.title}</Badge>
                       <Text>
                         {article.description}
-                        <Link color='purple.500' fontWeight={'bold'}> Czytaj dalej</Link>
+                        <Link color='purple.500' fontWeight={'bold'} href={'/news'}> Czytaj dalej</Link>
                       </Text>
                     </CardBody>
                   </Card>
