@@ -1,0 +1,28 @@
+import com.github.gradle.node.npm.task.NpxTask
+
+plugins {
+    id("com.github.node-gradle.node") version "3.2.1"
+}
+
+val buildTask = tasks.register<NpxTask>("buildFrontend") {
+    command.set("npm")
+    args.set(listOf("run export"))
+    dependsOn(tasks.npmInstall)
+    inputs.dir(project.fileTree("components"))
+    inputs.dir(project.fileTree("helpers"))
+    inputs.dir(project.fileTree("pages"))
+    inputs.dir(project.fileTree("public"))
+    inputs.dir("node_modules")
+    inputs.files("next.config.js", "webpack.config.js")
+    outputs.dir("${project.buildDir}/frontend")
+}
+
+sourceSets {
+    java {
+        main {
+            resources {
+                srcDir(buildTask)
+            }
+        }
+    }
+}
