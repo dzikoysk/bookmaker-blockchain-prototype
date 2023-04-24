@@ -5,7 +5,7 @@ export default function Footer() {
     <Flex>
       <Container>
         <Text textAlign={'center'} paddingY='4' fontSize={'sm'}>
-          Copyright © 2023 Szymon Jazgara
+          Wizualny prototyp interfejsu | Praca inżynierska 117E-ISP-IZ/305446/1200369 | Copyright © 2023 Szymon Jazgara
         </Text>
       </Container>
     </Flex>
