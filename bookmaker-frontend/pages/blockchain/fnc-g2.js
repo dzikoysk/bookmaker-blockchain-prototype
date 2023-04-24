@@ -70,7 +70,7 @@ const BlockchainBlock = ({ block, idx }) => {
               <Tr>
                 <Th>Kontrakt</Th>
                 <Td><Link color='purple.500'>{block.contract?.smartContractId ?? '-'}</Link></Td>
-                <Td>Identyfikator ykorzystanego kontraktu</Td>
+                <Td>Identyfikator wykorzystanego kontraktu</Td>
               </Tr>
               <Tr>
                 <Th>Funkcja</Th>
